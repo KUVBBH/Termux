@@ -1,0 +1,50 @@
+termux里面输入以下命令 :
+
+1.
+*******************************
+termux-setup-storage  
+
+获得存储权限
+*******************************
+
+
+
+2.
+*******************************
+sed -i 's@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/termux-packages-24 stable main@' $PREFIX/etc/apt/sources.list
+
+修改源
+*******************************
+
+
+
+3.
+*******************************
+pkg update && pkg upgrade 
+
+更新,提示[(Y/I/N/O/D/Z) [default=N] ?],输入Y确定
+*******************************
+
+
+
+4.
+*******************************
+pkg install python -y
+
+下载python
+*******************************
+
+
+
+5.
+*******************************
+完成以上步骤
+运行脚本 : adb_python环境配置脚本.py
+
+*******************************
+参考资料 : 1.Termux 高级终端安装使用配置教程
+           https://www.sqlsec.com/2018/05/termux.html
+
+           2.【安卓小知识】借助Termux实现了无需连接电脑也可以进行adb调试-哔哩哔哩】 https://b23.tv/uMs20jf
+           
+           3.【adb命令零基础快速入门--深入理解掌握app自动化测试底层技术-哔哩哔哩】 https://b23.tv/wd9x8P6
