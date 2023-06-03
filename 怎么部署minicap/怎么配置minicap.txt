@@ -1,0 +1,88 @@
+1.确认Termux和ADB已经配对
+
+
+
+2连接ADB
+
+    adb connect 127.0.0.1:你的端口号
+    
+    
+
+3查看SDK版本,记下来
+
+    adb shell getprop ro.build.version.sdk
+    
+    
+
+4查看CPU架构,记下来
+
+    adb shell getprop ro.product.cpu.abi
+    
+
+
+5根据CPU架构去对应的文件夹下载对应的可执行文件
+   
+    https://github.com/AirtestProject/Airtest/tree/master/airtest/core/android/static/stf_libs
+    
+    
+    
+6根据SDK版本下载对应的SO文件
+   
+    https://github.com/AirtestProject/Airtest/tree/master/airtest/core/android/static/stf_libs/minicap-shared/aosp/libs
+    
+    
+    
+7第五步下载下来的文件如果有.bin后缀,请去掉后缀
+
+
+
+8将SO文件和可执行文件复制到手机
+
+    adb push 你的保存的可执行文件路径 /data/local/tmp/
+    
+    adb push 你的保存的SO文件路径 /data/local/tmp/
+    
+ 
+
+
+9输入adb shell进入shell模式
+
+    adb shell
+    
+    
+    
+10进入/data/local/tmp/目录
+
+    cd  /data/local/tmp/
+    
+    
+
+11给minicap和minicap.so文件权限
+    
+    chmod 777 minicap
+    
+    chmod 777 minicap.so
+    
+
+
+12退出ADB的shell模式
+
+    exit
+    
+    
+    
+    
+13尝试启动minicap,分辨率千万不要写错，如果屏幕只有半截且无法退出，或者其他类似的情况，强制关机可以解决
+
+    adb shell LD_LIBRARY_PATH=/data/local/tmp /data/local/tmp/minicap -P 1080x2520@1080x2520/0
+
+
+
+14如果上面没有报错的话，出现'INFO: (jni/minicap/minicap.cpp:489) Server start'就表示成功了，按CTRL然后按4就可以退出
+
+
+
+15用socket解析视频流就可以得到截图了
+
+    怎么解析参考:https://www.cnblogs.com/qiangayz/p/9580389.html
+    
