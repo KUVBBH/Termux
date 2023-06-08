@@ -167,7 +167,7 @@ P.daemon = True
 P.start()
 #P.join()
 time.sleep(1)
-print('请在浏览器打开以下网页:127.0.0.1:'+str(web_port))
+print('请在浏览器打开以下网页: http://localhost:'+str(web_port))
 start_server(web_1, port=web_port,debug=True)
 
 
