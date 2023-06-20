@@ -1,0 +1,235 @@
+文件有点大放在百度网盘(如果你的网络环境好的话，可以自己按照下面的一步步操作，就没有必要去网盘下载) :
+
+通过百度网盘分享的文件：termux_Y…
+
+链接:https://pan.baidu.com/s/1Jzz_EBmsyC93Idew_p0lCw?pwd=9472
+
+提取码:9472
+
+复制这段内容打开「百度网盘APP 即可获取」
+
+YOLO来自:
+
+    https://github.com/ultralytics/ultralytics
+
+参考 :
+
+    【yolov8 推理及训练（代码实战）-哔哩哔哩】 https://b23.tv/VI8HZ12
+
+    
+
+''''''''''''''YOLO''''''''''''''
+
+1.清空Termux的缓存(重要资料先备份)
+
+2.授权
+
+    termux-setup-storage
+
+3.运行"Termux初始化脚本.sh"
+
+    bash <脚本绝对路径>
+
+    
+
+4.下载debian,两种方法2选1
+
+    ①命令下载，较慢
+
+    proot-distro install debian
+
+    ②恢复包恢复,可能会失败(debian.tar.gz)
+
+    [我的系统 : android12 SDK31 CPUarm64-v8a]
+
+    proot-distro restore <恢复包绝对路径>
+
+5.切换到debian
+
+    proot-distro login debian
+
+6.运行"YOLO配置脚本.sh"
+
+    
+
+    bash <脚本绝对路径>
+
+    
+
+7.切换到YOLO目录下
+
+    cd <绝对路径>
+
+    
+
+    例如 :
+
+        cd /storage/emulated/0/termux_YOLO/YOLO
+
+8.运行predict.py或者命令行输入'yolo version'
+
+    python3 ./ultralytics/yolo/v8/detect/predict.py
+
+    显示'Results saved to runs/detect/train'就表示配置成功
+
+    
+
+    yolo version
+
+    
+
+9.怎么训练
+
+    我还不会
+
+    
+
+''''''''''''''YOLO''''''''''''''
+
+!!记得用proot-distro备份YOLO环境，方便以后恢复。
+
+!!安装完YOLO环境[root@localhost:~#],才可以在Termux的初始环境[~$]装其它和python有关东西,不然可能会有lib库的冲突。
+
+yolo detect predict model=yolov8n.pt source='https://ultralytics.com/images/bus.jpg'  # predict with official model
+
+yolo detect predict model=path/to/best.pt source='https://ultralytics.com/images/bus.jpg'  # predict with custom model
+
+''''''''''''''其他''''''''''''''
+
+proot-distro管理
+
+参考:https://blog.csdn.net/lxyoucan/article/details/116757373
+
+1.安装 
+
+pkg install  proot-distro
+
+2.查询支持哪些发行版本
+
+proot-distro list
+
+3.安装
+
+proot-distro install <系统>
+
+4.登录
+
+proot-distro login <系统>
+
+5.备份
+
+proot-distro backup <系统> --output <路径>
+
+proot-distro backup alpine --output ./alpine20210513.tar.gz
+
+6.恢复
+
+proot-distro restore <路径>
+
+7.卸载
+
+proot-distro remove <系统>
+
+debian 换源
+
+参考 http://www.taodudu.cc/news/show-3684734.html?action=onClick
+
+sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+
+apt-get update
+
+opencv可能缺少的库和报错:
+
+ERR:libGL.so.1
+
+apt install libgl1-mesa-glx
+
+ERR:libgthread-2.0.so.0
+
+apt-get install libglib2.0-dev
+
+conda 
+
+参考 https://zhuanlan.zhihu.com/p/608147907?utm_id=0
+
+     
+
+1.浏览器下载
+
+https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh
+
+2.运行下载的文件
+
+bash <路径>
+
+3.创建环境
+
+conda create --name <环境的名字> python=<版本号>
+
+4.切换环境
+
+conda activate <环境的名字>
+
+5.查看安装环境
+
+conda env list
+
+conda info --envs
+
+6.是否自动进去conda环境
+
+conda config --set auto_activate_base <false或者true>
+
+7.退出环境
+
+conda deactivate
+
+8.删除环境
+
+conda remove --name <环境的名字> --all
+
+python源
+
+https://pypi.tuna.tsinghua.edu.cn/simple
+
+http://pypi.douban.com/simple/
+
+http://mirrors.cloud.tencent.com/pypi/simple
+
+https://mirrors.aliyun.com/pypi
+
+opencv安装最新
+
+切换到对应的环境
+
+pip install opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+pip install opencv-python-headless -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+3.4.15.55版本
+
+pip install opencv-python==3.4.15.55 -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+pip install opencv-python-headless==3.4.15.55 -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+pip install opencv-contrib-python==3.4.15.55 -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+如果缺少动态库(好像没用)
+
+apt install apt-file
+
+apt-file update
+
+Termux备份
+
+tar -zcf <路径.tar.gz> -C /data/data/com.termux/files ./home ./usr
+
+tar -zcf /sdcard/termux-backup.tar.gz -C /data/data/com.termux/files ./home ./usr
+
+恢复
+
+tar -zxf <路径> -C /data/data/com.termux/files --recursive-unlink --preserve-permissions
+
+tar -zxf  /storage/emulated/0/termux备份/termux_cv2环境.tar.gz -C /data/data/com.termux/files --recursive-unlink --preserve-permissions
+
+''''''''''''''其他''''''''''''''
